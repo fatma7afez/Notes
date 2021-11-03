@@ -1,0 +1,15 @@
+$backgroundColor:rgb(34, 33, 33);
+$start:50%;
+$top:50%;
+$positionChild:absolute;
+#register{
+    min-height: 100vh;
+    background-color:$backgroundColor ;
+}
+
+form{
+    position: $positionChild;
+    top: $top;
+    left: $start;
+    transform: translate(-50%,-50%);
+}

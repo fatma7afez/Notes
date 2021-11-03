@@ -1,0 +1,249 @@
+<section id="home" class="my-5">
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-12">
+        <button
+          type="button"
+          class="btn btn-info my-5 float-end"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Add Note
+        </button>
+      </div>
+      <div class="col-lg-3 col-md-4 mb-2" *ngFor="let note of getNoteArray">
+        <div class="note p-3 text-center">
+          <div class="text-end">
+            <div class="dropdown">
+              <i
+                class="fas fa-ellipsis-v mouse-pointer"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></i>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a
+                    class="
+                      dropdown-item
+                      d-flex
+                      justify-content-between
+                      align-items-center
+                      mouse-pointer
+                    "
+                    (click)="edit(note._id);setValue()"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModalUpdata"
+                  >
+                    Edit
+                    <i class="fas fa-pen-square text-info fa-lg"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="
+                      dropdown-item
+                      d-flex
+                      justify-content-between
+                      align-items-center
+                      mouse-pointer
+                    "
+                    (click)="delete(note._id)"
+                    data-bs-toggle="modal" data-bs-target="#exampleModaldelete"
+                  >
+                    Delete
+                    <i class="fas fa-trash text-danger fa-lg"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <h2>{{ note.title }}</h2>
+          <p>{{ note.desc }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!---------------------------- add Modal ---------------------->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-black" id="exampleModalLabel">
+              Add Note
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form
+              [formGroup]="addNotesForm"
+              (ngSubmit)="SubmitAddNotes(addNotesForm)"
+            >
+              <div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="title"
+                  formControlName="title"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="
+                    addNotesForm.get('title')?.errors != null &&
+                    addNotesForm.get('title')?.touched
+                  "
+                >
+                  Title is required
+                </div>
+              </div>
+              <div class="mt-3">
+                <textarea
+                  class="form-control "
+                  cols="25"
+                  rows="10"
+                  placeholder="Add description"
+                  formControlName="desc"
+                ></textarea>
+                <div
+                  class="alert alert-danger"
+                  *ngIf="
+                    addNotesForm.get('desc')?.errors != null &&
+                    addNotesForm.get('desc')?.touched
+                  "
+                >
+                  Description is required
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Add Note</button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---------------------------- add Modal ---------------------->
+
+    <!---------------------------- updata Modal ---------------------->
+    <div
+      class="modal fade"
+      id="exampleModalUpdata"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-black" id="exampleModalLabel">
+              Edit Note
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form
+              [formGroup]="upDataNoteForm"
+              (ngSubmit)="SubmitUpdataNote(upDataNoteForm)"
+            >
+              <div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="title"
+                  formControlName="title"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="
+                  upDataNoteForm.get('title')?.errors != null &&
+                  upDataNoteForm.get('title')?.touched
+                  "
+                >
+                  Title is required
+                </div>
+              </div>
+              <div class="mt-3">
+                <textarea
+                  class="form-control"
+                  cols="25"
+                  rows="10"
+                  placeholder="Add description"
+                  formControlName="desc"
+                ></textarea>
+                <div
+                  class="alert alert-danger"
+                  *ngIf="
+                  upDataNoteForm.get('desc')?.errors != null &&
+                  upDataNoteForm.get('desc')?.touched
+                  "
+                >
+                  Description is required
+                </div>
+            </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Add Note</button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---------------------------- updata Modal ---------------------->
+    <!---------------------------- delete Modal ---------------------->
+<div class="modal fade" id="exampleModaldelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center p-4 text-primary">
+         Do you really want to delete ? <br/>
+         process cannot be un done
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="deleteNote()" class="btn btn-danger">Delete</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!---------------------------- delete Modal ---------------------->
+  </div>
+</section>

@@ -1,0 +1,14 @@
+$mousePointer: pointer;
+.note {
+  min-height: 200px;
+  background-color: #ffcccc;
+}
+
+.note p {
+  overflow: hidden;
+}
+
+.dropdown i,
+.mouse-pointer {
+  cursor: $mousePointer;
+}
